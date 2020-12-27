@@ -3,25 +3,52 @@ mongoose.set('useFindAndModify', false);
 const Cars = require('../models/Car')
 
 exports.getCars = async(req, res) => {
-    const cars = await Cars.find();
-    return res.json(cars);
+    await Cars.find((err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: "error"
+            })
+        } else {
+            data.forEach(car => {
+                var parttime = car.ParkedTime.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+
+                car.ParkedTime = parttime;
+                console.log(parttime)
+            })
+            console.log(data)
+            res.json(data);
+        }
+
+    });
+
+
 }
-exports.getCarByCarCode = async(carCode) => {
+exports.getCarByCarCode = async(req, res) => {
+    var carCode = req.params.carCode;
     var result = await Cars.findOne({ CarCode: carCode }, (err, data) => {
         if (err) {
-            console.log(err);
+            res.status(500).send({
+                message: "something went wrong"
+            })
         } else {
-            console.log(data)
+            res.json(data)
         }
     })
-    return result;
+
 }
-exports.createCar = async(data) => {
+exports.createCar = async(req, res) => {
+    var data = req.body;
+    data.ParkedTime = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    data.Duration = 0;
+    console.log(data)
     await new Cars(data).save((err, data) => {
         if (err) {
+            console.log(err)
             res.status(500).json({
                 message: "something went wrong, please try again"
             })
+        } else {
+            res.json(data);
         }
     })
 }
@@ -31,7 +58,7 @@ exports.updateCar = async(body) => {
         if (err) {
             console.log(err)
         } else {
-            console.log("ok")
+            // console.log("ok")
         }
     })
 }
