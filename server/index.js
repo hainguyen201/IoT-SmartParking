@@ -11,9 +11,8 @@ require('dotenv').config({ path: '.env' });
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/postion', positionRouter);
-app.use('/car', carRouter);
-
+app.use('/positions', positionRouter);
+app.use('/cars', carRouter);
 const database = require('./configs/database');
 mongoose.connect(database.dbStr, {
     useUnifiedTopology: true,
@@ -21,7 +20,7 @@ mongoose.connect(database.dbStr, {
 });
 mongoose.connection.on('error', err => console.log(err));
 
-app.listen(3000, () => console.log('Server start on port 3000!'))
+app.listen(process.env.PORT, () => console.log(`Server start on port ${process.env.PORT}!`))
 
 var pController = require('./controllers/positionController')
 client.on('connect', function() {
@@ -37,12 +36,17 @@ client.on('message', async function(topic, message) {
     // message is Buffer
     // console.log(message.toString())
     var data = JSON.parse(message.toString());
-    var value = data.value;
+    var value = data.value_after;
     var status = 0;
-    if (value >= 10 && data.value <= 50)
+    if (value >= 10 && value <= 40 && data.value_below == 1)
+    // đã có xe đỗ
         status = 1;
-    else if (value < 10)
+    else if (value < 10 && data.value_below == 1)
+    // đỗ sai
         status = -1
+    else if (data.value_below == 0)
+    // chưa đỗ
+        status = 0
     var position = {};
     position.positionID = data.id;
     position.status = status;

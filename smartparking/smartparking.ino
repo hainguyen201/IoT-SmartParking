@@ -7,6 +7,7 @@
 #define mqtt_server "broker.mqttdashboard.com"
 #define mqtt_topic_pub "channel/topic1"
 #define mqtt_topic_sub "channel/topic1"
+#define wifiID "A-11"
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
@@ -15,7 +16,7 @@
 #include <EEPROM.h>
 const uint16_t mqtt_port = 1883;
 // const char* ssid = "EXT";
-const char* password = "12345689";
+// const char* password = "12345689";
 long lastMsg = 0;
 char msg[50];
 int value = 0;
@@ -52,21 +53,21 @@ float GetDistance()
 
   return distanceCm;
 }
-void setup_wifi() {
-  delay(10);
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-}
+// void setup_wifi() {
+//   delay(10);
+//   Serial.println();
+//   Serial.print("Connecting to ");
+//   Serial.println(ssid);
+//   WiFi.begin(ssid, password);
+//   while (WiFi.status() != WL_CONNECTED) {
+//     delay(500);
+//     Serial.print(".");
+//   }
+//   Serial.println("");
+//   Serial.println("WiFi connected");
+//   Serial.println("IP address: ");
+//   Serial.println(WiFi.localIP());
+// }
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
@@ -103,6 +104,8 @@ void setup() {
 //  pinMode (LED, OUTPUT);
   Serial.begin(115200);
   // setup_wifi();
+  client.setServer(mqtt_server, mqtt_port);
+  client.setCallback(callback);
 
   Serial.println("Disconnecting current wifi connection");
   WiFi.disconnect();
@@ -151,8 +154,7 @@ void setup() {
     server.handleClient();
   }
 
-//  client.setServer(mqtt_server, mqtt_port);
-//  client.setCallback(callback);
+  
 
 
 }
@@ -171,7 +173,8 @@ void loop() {
   StaticJsonBuffer<300> JSONbuffer;
   JsonObject& JSONencoder = JSONbuffer.createObject();
   JSONencoder["id"] = "A11";
-  JSONencoder["value"] = distance;
+  JSONencoder["value_below"] = random(2);
+  JSONencoder["value_after"] = distance;
   //JSONencoder["HUM"] = h;
   char JSONmessageBuffer[100];
   JSONencoder.printTo(JSONmessageBuffer, sizeof(JSONmessageBuffer));
@@ -254,7 +257,7 @@ void setupAP(void)
   }
   st += "</ol>";
   delay(100);
-  WiFi.softAP("ElectronicsInnovation", "");
+  WiFi.softAP(wifiID, "");
   Serial.println("Initializing_softap_for_wifi credentials_modification");
   launchWeb();
   Serial.println("over");

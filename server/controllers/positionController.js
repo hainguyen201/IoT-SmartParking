@@ -1,53 +1,88 @@
+const { json } = require("express");
 const mongoose = require("mongoose")
 mongoose.set('useFindAndModify', false);
 const Positions = require('../models/Position')
 
 exports.getPositions = async(req, res) => {
     const positions = await Positions.find();
-    res.json(posts);
+    res.json(positions)
 }
-exports.getPositionsByID = async(id) => {
-    await Positions.findOne({ positionID: id }, (err, data) => {
+exports.getPositionsByID = async(req, res) => {
+    console.log(req.params)
+    await Positions.findOne({ "positionID": req.params.positionId }, (err, data) => {
         if (err) {
             console.log(err);
         } else {
             console.log(data)
+            res.json(data)
         }
     })
-    return result;
+
 }
-exports.createPosition = async(data) => {
-    await new Positions(data).save((err, data) => {
+exports.createPosition = async(req, res) => {
+    var position = req.body;
+    console.log(position);
+    await new Positions(position).save((err, data) => {
         if (err) {
             res.status(500).json({
                 message: "something went wrong, please try again"
             })
-        }
-    })
-}
-exports.updatePosition = async(body) => {
-    let positionID = body.positionID;
-    await Positions.findOneAndUpdate({ "positionID": positionID }, { $set: body }, (err, data) => {
-        if (err) {
-            console.log(err)
         } else {
-            console.log("ok")
+            res.json(data)
         }
     })
 }
-exports.findAndUpdateOrPost = async(body) => {
-    await Positions.findOne({ "positionID": body.positionID }, (err, data) => {
+exports.updatePositionStatus = async(req, res) => {
+    var positionid = req.params.positionId;
+    console.log(positionid)
+    console.log(req.body)
+    await Positions.findOneAndUpdate({ positionID: positionid }, { status: req.body.status }, { upsert: true }, async(err, data) => {
+        if (err) {
+            res.status(500).json({
+                message: "something went wrong, please try again"
+            })
+
+        } else {
+            res.json(data);
+        }
+    })
+}
+exports.findAndUpdateOrPost = async(body, result) => {
+    await Positions.findOne({ "positionID": body.positionID }, async(err, data) => {
         if (err) {
             console.log(err);
         } else {
             console.log(data);
-            console.log(body);
+            // console.log(body);
             if (data) {
-                this.updatePosition(body);
+                await Positions.findOneAndUpdate({ "positionID": body.positionID }, { $set: body }, async(err, data) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        result(data);
+                    }
+                })
             } else {
-                console.log(body)
-                this.createPosition(body)
+                await new Positions(body).save((err, data) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        result(data);
+                    }
+                })
             }
+        }
+    })
+}
+exports.deletePosition = async(req, res) => {
+    var positionid = req.params.positionId
+    await Positions.findOneAndRemove({ positionID: positionid }, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: "something went wrong"
+            })
+        } else {
+            res.json(data)
         }
     })
 }

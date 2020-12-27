@@ -25,6 +25,7 @@ client.on('message', async function(topic, message) {
     // message is Buffer
     // console.log(message.toString())
     var data = JSON.parse(message.toString());
+    console.log(data)
     var value = data.value;
     var status = 0;
     if (value >= 10 && data.value <= 50)

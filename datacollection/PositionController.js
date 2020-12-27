@@ -11,7 +11,7 @@ exports.getPositionsByID = async(id) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(data)
+            // console.log(data)
         }
     })
     return result;
@@ -31,7 +31,7 @@ exports.updatePosition = async(body) => {
         if (err) {
             console.log(err)
         } else {
-            console.log("ok")
+            // console.log("ok")
         }
     })
 }
@@ -40,12 +40,12 @@ exports.findAndUpdateOrPost = async(body) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(data);
-            console.log(body);
+            // console.log(data);
+            // console.log(body);
             if (data) {
                 this.updatePosition(body);
             } else {
-                console.log(body)
+                // console.log(body)
                 this.createPosition(body)
             }
         }

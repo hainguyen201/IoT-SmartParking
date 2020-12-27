@@ -3,10 +3,11 @@ const router = express.Router();
 
 const positionController = require('../controllers/positionController');
 
-router.get('/getPositions', positionController.getPositions);
-router.get('/getPositionsByID', positionController.getPositionsByID);
-router.post('/createPosition', positionController.createPosition);
-router.post('/updatePosition', positionController.updatePosition);
-router.post('/findAndUpdateOrPost', positionController.findAndUpdateOrPost);
+router.get('/', positionController.getPositions);
+router.get('/:positionId', positionController.getPositionsByID);
+router.post('/', positionController.createPosition);
+router.put('/:positionId', positionController.updatePositionStatus);
+router.delete('/:positionId', positionController.deletePosition)
+    // router.post('/', positionController.findAndUpdateOrPost);
 
 module.exports = router;
