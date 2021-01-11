@@ -20,8 +20,6 @@ exports.getCars = async(req, res) => {
         }
 
     });
-
-
 }
 exports.getCarByCarCode = async(req, res) => {
     var carCode = req.params.carCode;
