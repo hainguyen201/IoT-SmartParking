@@ -4,8 +4,15 @@ mongoose.set('useFindAndModify', false);
 const Positions = require('../models/Position')
 
 exports.getPositions = async(req, res) => {
-    const positions = await Positions.find();
-    res.json(positions)
+    await Positions.find((err, data) => {
+        if (err) {
+            res.status(500).send(JSON.stringify(err))
+        } else {
+            res.status(200).send(JSON.stringify(data))
+        }
+
+    });
+
 }
 exports.getPositionsByID = async(req, res) => {
     console.log(req.params)
