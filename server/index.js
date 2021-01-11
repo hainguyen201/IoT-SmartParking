@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const positionRouter = require('./routes/position');
 const carRouter = require('./routes/car');
+const userRouter = require('./routes/user')
+const cors = require('cors')
 const mongoose = require('mongoose');
 
 var mqtt = require('mqtt')
@@ -9,10 +11,17 @@ var client = mqtt.connect('mqtt://broker.mqttdashboard.com')
 require('dotenv').config({ path: '.env' });
 
 const app = express();
+var allowedOrigins = [
+    'http://127.0.0.1:5500/'
+];
+app.use(cors({
+    origin: allowedOrigins
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/positions', positionRouter);
 app.use('/cars', carRouter);
+app.use('/users', userRouter);
 const database = require('./configs/database');
 mongoose.connect(database.dbStr, {
     useUnifiedTopology: true,
