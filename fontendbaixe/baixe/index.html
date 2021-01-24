@@ -17,11 +17,46 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
-    <script language="javascript" src="./js/car.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script language="javascript" src="./js/position.js"></script>
     <style>
-        .hang span {
-            display: inline-block;
-        }
+    .bai-xe span{
+        display: inline-block;
+        width: 26px;
+        height: 69px;
+        color: transparent;
+        background: green;
+        margin: 1px -1px;
+    /* margin-bottom: 50px; */
+    }
+    .day-a, .day-b, .day-c, .day-d {
+    background: black;
+    padding: 40px 5px;
+    text-align: right;
+    display: inline-block;
+    margin: 0px 90px;
+    padding-left: 40px;
+    }
+    .day-b,.day-d{
+        text-align: left;
+        padding-left: 5px;
+        padding-right: 40px;
+    }
+    .day-a{
+        margin-bottom: 50px;
+    }
+    .active{
+        background-image: url(oto.png) !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    span.label {
+    color: white;
+    text-align: center;
+    background: deepskyblue;
+    width: 55px;
+}
     </style>
 </head>
 
@@ -123,55 +158,6 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -266,46 +252,126 @@
                     <div class="title">
                         Bãi đỗ xe abcxyz
                     </div>
-                    <div class="baido">
-                        <div class="hang" id="hanga">
-                            <span>A1</span>
-                            <span>A2</span>
-                            <span>A3</span>
-                            <span>A4</span>
-                            <span>A5</span>
-                            <span>A6</span>
+                </br>
+                </br>
+                    <div class="bai-xe">
+                        <div class="day-a" style="padding-top: 70px;padding-bottom: 0px;">
+                            <div class="day-a-1" id="A-top">
+                                <span class="label">A</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A14</span>
+                            </div>
+                            <div class="day-a-2" id="a-bottom">
+                                <span class="label">A</span>
+                            </div>
                         </div>
-                        <div class="hang">
-                            <span>A1</span>
-                            <span>A2</span>
-                            <span>A3</span>
-                            <span>A4</span>
-                            <span>A5</span>
-                            <span>A6</span>
+                        <div class="day-b" style="padding-top: 70px;padding-bottom: 0px;">
+                            <div class="day-b-1">
+                                <span class="label">B</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                            </div>
+                            <div class="day-b-2">
+                                <span class="label">B</span>
+                                <span class="active">A21</span>
+                                <span>A22</span>
+                                <span>A23</span>
+                                <span>A24</span>
+                            </div>
                         </div>
-                        <div class="hang">
-                            <span>A1</span>
-                            <span>A2</span>
-                            <span>A3</span>
-                            <span>A4</span>
-                            <span>A5</span>
-                            <span>A6</span>
+                        <div class="day-c" style="padding-top: 0px;">
+                            <div class="day-b-1">
+                                <span class="label">C</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                            </div>
+                            <div class="day-b-2">
+                                <span class="label">C</span>
+                                <span class="active">A21</span>
+                                <span>A22</span>
+                                <span>A23</span>
+                                <span>A24</span>
+                                <span>A22</span>
+                                <span>A23</span>
+                                <span>A24</span>
+                                <span>A22</span>
+                                <span>A23</span>
+                                <span>A24</span>
+                                <span>A22</span>
+                                <span>A23</span>
+                                <span>A24</span>
+                                <span>A22</span>
+                                <span>A23</span>
+                                <span>A24</span>
+                            </div>
                         </div>
-                        <div class="hang">
-                            <span>A1</span>
-                            <span>A2</span>
-                            <span>A3</span>
-                            <span>A4</span>
-                            <span>A5</span>
-                            <span>A6</span>
-                        </div>
-                        <div class="hang">
-                            <span>A1</span>
-                            <span>A2</span>
-                            <span>A3</span>
-                            <span>A4</span>
-                            <span>A5</span>
-                            <span>A6</span>
+                        <div class="day-d" style="padding-top: 0px;">
+                            <div class="day-b-1">
+                                <span class="label">D</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                                <span>A11</span>
+                                <span>A12</span>
+                                <span>A13</span>
+                                <span>A14</span>
+                            </div>
+                            <div class="day-b-2">
+                                <span class="label">D</span>
+                                <span class="active">A21</span>
+                                <span>A22</span>
+                                <span>A23</span>
+                                <span>A24</span>
+                            </div>
                         </div>
                     </div>
                 </div>
