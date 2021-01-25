@@ -3,9 +3,10 @@ var Car = {
     Status: ""
 }
 
+
 function getPositionById(id) {
     $.ajax({
-        url: base_url + '/positions/' + id,
+        url: "http://localhost:5000/positions/" + id,
         type: 'GET',
         dataType: 'json',
         success: function(position) {
@@ -20,43 +21,45 @@ function getPositionById(id) {
 
 function positionList() {
     $.ajax({
-        url: base_url + '/positions/',
+        url: 'http://localhost:5000/positions/',
         type: 'GET',
         dataType: 'json',
         success: function(positions) {
-            var aTop = "A1";
+            console.log(positions);
+            var aTop ="A1";
             var aBottom = "A2";
             for (let i = 0; i < positions.length; i++) {
                 var position = positions[i].positionID;
-                var status = positions[i].status;
-                if (position.indexOf(aTop) !== -1) {
-                    if (status == 1) {
+                var status   = positions[i].status;
+                if(position.indexOf(aTop) !== -1){
+                    if(status == 1){        
                         $("#A-top").append(
                             `
-                                <span class="active">${position}</span>
+                                <span id="${position}" class="active">${position}</span>
                             `);
-                    } else {
+                    }
+                    else{
                         $("#A-top").append(
                             `
-                                <span>${position}</span>
+                                <span id="${position}">${position}</span>
                             `);
                     };
                 };
-                if (position.indexOf(aBottom) !== -1) {
-                    if (status == 1) {
+                if(position.indexOf(aBottom) !== -1){
+                    if(status == 1){
                         $("#a-bottom").append(
                             `
-                            <span class="active">${position}</span>
+                            <span id="${position}" class="active">${position}</span>
                             `);
-                    } else {
+                    }
+                    else{
                         $("#a-bottom").append(
                             `
-                                <span>${position}</span>
+                                <span id="${position}">${position}</span>
                             `);
                     }
                 }
-            }
-            console.log(positions);
+             }
             return positions;
         },
         error: function(request, message, error) {
@@ -65,3 +68,33 @@ function positionList() {
     });
 }
 positionList();
+
+
+setInterval(function positionChange() {
+    $.ajax({
+        url: 'http://localhost:5000/positions/',
+        type: 'GET',
+        dataType: 'json',
+        success: function(positions) {
+            for (let i = 0; i < positions.length; i++) {
+                var position = positions[i].positionID;
+                var status   = positions[i].status;
+
+                // console.log("f" + $("#" + position).hasClass("active"));
+                // console.log(status == 0);
+                console.log(($("#" + position).hasClass("active")) && status === 0);
+                if($("#" + position).hasClass("active") && status == 0){
+                    $("#" + position).removeClass("active");
+                }
+                else if((!$("#" + position).hasClass("active")) && status == 1){
+                    $("#" + position).addClass("active");
+                }
+            }
+            console.log(positions);
+            
+        },
+        error: function(request, message, error) {
+            handleException(request, message, error);
+        }
+    });
+},4000);
