@@ -21,6 +21,20 @@ exports.getCars = async(req, res) => {
 
     });
 }
+exports.getCarOutByCarCode = async(req, res) => {
+    var carCode = req.params.carCode;
+    console.log(carCode)
+    var result = await Cars.findOne({ CarCode: carCode, Duration: 0 }, (err, data) => {
+        console.log(data)
+        if (err) {
+            res.status(500).send({
+                message: "something went wrong"
+            })
+        } else {
+            res.json(data)
+        }
+    })
+}
 exports.getCarByCarCode = async(req, res) => {
     var carCode = req.params.carCode;
     var result = await Cars.findOne({ CarCode: carCode }, (err, data) => {
@@ -50,13 +64,15 @@ exports.createCar = async(req, res) => {
         }
     })
 }
-exports.updateCar = async(body) => {
-    let carCode = body.CarCode;
-    await Cars.findOneAndUpdate({ "CarCode": carCode }, { $set: body }, (err, data) => {
+exports.updateCar = async(req, res) => {
+    let id = req.params.id;
+    await Cars.findOneAndUpdate({ "_id": id }, { $set: req.body }, (err, data) => {
         if (err) {
-            console.log(err)
+            res.status(500).send({
+                message: "somethinh went wrong"
+            })
         } else {
-            // console.log("ok")
+            res.json(data)
         }
     })
 }
