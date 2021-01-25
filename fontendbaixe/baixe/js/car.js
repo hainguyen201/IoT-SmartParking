@@ -4,8 +4,25 @@ var Car = {
     Duration: "",
     PositionID: ""
 }
-
-
+function parseTime(a){
+    var x = a.split(/\D+/);
+    var result = x[0] + "-" + x[1] + "-" + x[2] + "/" + x[3] + ":" + x[4] + ":" + x[5];
+    return result;
+}
+function getYear(a,b){
+    var x = a.split(/\D+/);
+    var y = b.split(/\D+/);
+    var year = x[0] - y[0];
+    var month = x[1] - y[1];
+    var day = x[2] - y[2];
+    var hour = x[3] - y[3];
+    var minute = x[4] - y[4];
+    var result = year*525600 + month*43200 + day*1440 + hour*60 + minute;
+    return result;
+}
+$(window).on('load', function () {
+    $("#dataTables_empty").css("display", "none");
+  });
 function getCarByCode(code) {
     $.ajax({
         url: base_url + '/cars/' + code,
@@ -32,129 +49,85 @@ function carList() {
                 var carCode = cars[i].CarCode;
                 var parkedTime = cars[i].ParkedTime;
                 var duration = cars[i].Duration;
+                var time = parseTime(parkedTime)
                 $("#table-car").append(`<tr>
                         <td>${carCode}</td>
-                        <td>${parkedTime}</td>
+                        <td>${time}</td>
                         <td>${duration}</td>
                     </tr>`);
             }
-            var x = cars.length;
-            Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-            Chart.defaults.global.defaultFontColor = '#858796';
-
-            function number_format(number, decimals, dec_point, thousands_sep) {
-                // *     example: number_format(1234.56, 2, ',', ' ');
-                // *     return: '1 234,56'
-                number = (number + '').replace(',', '').replace(' ', '');
-                var n = !isFinite(+number) ? 0 : +number,
-                    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-                    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-                    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-                    s = '',
-                    toFixedFix = function(n, prec) {
-                        var k = Math.pow(10, prec);
-                        return '' + Math.round(n * k) / k;
-                    };
-                // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-                s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-                if (s[0].length > 3) {
-                    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-                }
-                if ((s[1] || '').length < prec) {
-                    s[1] = s[1] || '';
-                    s[1] += new Array(prec - s[1].length + 1).join('0');
-                }
-                return s.join(dec);
-            }
-
-            // Bar Chart Example
-            var ctx = document.getElementById("myBarChart");
-            var myBarChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-                    datasets: [{
-                        label: "Số lượng:",
-                        backgroundColor: "#4e73df",
-                        hoverBackgroundColor: "#2e59d9",
-                        borderColor: "#4e73df",
-                        data: [cars.length, 2, 1, 4, 5, 6, 4, 2, 7, 2, 3, 6],
-                    }],
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    layout: {
-                        padding: {
-                            left: 10,
-                            right: 25,
-                            top: 25,
-                            bottom: 0
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            time: {
-                                unit: 'Day'
-                            },
-                            gridLines: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                maxTicksLimit: 12
-                            },
-                            maxBarThickness: 25,
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                min: 0,
-                                max: 10,
-                                maxTicksLimit: 5,
-                                padding: 10,
-                                // Include a dollar sign in the ticks
-                                callback: function(value, index, values) {
-                                    return number_format(value);
-                                }
-                            },
-                            gridLines: {
-                                color: "rgb(234, 236, 244)",
-                                zeroLineColor: "rgb(234, 236, 244)",
-                                drawBorder: false,
-                                borderDash: [2],
-                                zeroLineBorderDash: [2]
-                            }
-                        }],
-                    },
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        titleMarginBottom: 10,
-                        titleFontColor: '#6e707e',
-                        titleFontSize: 14,
-                        backgroundColor: "rgb(255,255,255)",
-                        bodyFontColor: "#858796",
-                        borderColor: '#dddfeb',
-                        borderWidth: 1,
-                        xPadding: 15,
-                        yPadding: 15,
-                        displayColors: false,
-                        caretPadding: 10,
-                        callbacks: {
-                            label: function(tooltipItem, chart) {
-                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                return datasetLabel + number_format(tooltipItem.yLabel);
-                            }
-                        }
-                    },
-                }
-            });
-
-
         },
         error: function(request, message, error) {
             handleException(request, message, error);
         }
     });
 };
+function addCar(){
+    var carID = $("#get-id-card").val();
+    var data = {
+        "CarCode": carID
+    };
+    $.ajax({
+        url: base_url + '/cars/',
+        type: 'POST',
+        data: data,
+        success: function(cars) {
+            alert("Đã thêm xe");
+            location.reload();
+        },
+        error: function(request, message, error) {
+            handleException(request, message, error);
+        }
+    });
+}
+function carOut(){
+    var d = new Date();
+    var n = d.toISOString();
+    var b = n.split(/\D+/);
+    var carID = $("#get-id-card-out").val();
+    console.log(carID);
+    $.ajax({
+        url: base_url + '/cars/carouts/' + carID,
+        type: 'GET',
+        dataType: 'json',
+        success: function(car) {
+            console.log(car + "hí");
+                if(car == null){alert("không có xe trong bãi xe")}
+                else{
+                        var id = car._id;
+                        var carCode = car.CarCode;
+                        var parkedTime = car.ParkedTime;
+                        var duration = car.Duration;
+                        if(duration  == 0){
+                            var result = getYear(n,parkedTime);
+                            var data = {
+                                "Duration":result
+                            }
+                            $.ajax({
+                                url: base_url + '/cars/' + id,
+                                type: 'PUT',
+                                data: data,
+                                dataType:"application/json",
+                                success: function() {
+                                    alert("Tổng thời gian là:" + result  + "phút");
+                                    window.location.reload();
+                                },
+                                error: function() {
+
+                                    alert("Tổng thời gian là:" + result +  "phút");
+                                    window.location.reload();
+                                }
+                            });
+                        }
+                        else{
+                            alert("Không có xe trong bãi xe");
+                        }
+                    }
+                        
+        },
+        error: function(request, message, error) {
+            handleException(request, message, error);
+        }
+    });
+}
 carList();

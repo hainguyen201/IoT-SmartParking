@@ -17,7 +17,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <style>
+        #dataTables_empty{
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -269,6 +273,62 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Bảng dữ liệu xe vào ra</h6>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Thêm xe
+                            </button>
+                              
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLongTitle">Bãi xe IOT</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="">
+                                          <label for="bien-so">Biển số xe:</label>
+                                          <input type="text" name="bien-so" placeholder="Nhập biển số xe" id="get-id-card">
+                                      </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addCar()">Save changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+<!-- xe ra -->
+                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterOut">
+                                Xe ra
+                              </button>
+                              
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModalCenterOut" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLongTitle">Bãi xe IOT</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="">
+                                          <label for="bien-so">Biển số xe:</label>
+                                          <input type="text" name="bien-so" placeholder="Nhập biển số xe" id="get-id-card-out" required="true">
+                                      </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="carOut()">Cho ra</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
