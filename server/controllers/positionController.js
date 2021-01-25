@@ -65,16 +65,12 @@ exports.findAndUpdateOrPost = async(body, result) => {
                 await Positions.findOneAndUpdate({ "positionID": body.positionID }, { $set: body }, async(err, data) => {
                     if (err) {
                         console.log(err)
-                    } else {
-                        result(data);
                     }
                 })
             } else {
                 await new Positions(body).save((err, data) => {
                     if (err) {
                         console.log(err);
-                    } else {
-                        result(data);
                     }
                 })
             }
