@@ -60,5 +60,6 @@ client.on('message', async function(topic, message) {
     var position = {};
     position.positionID = data.id;
     position.status = status;
+    console.log(position)
     pController.findAndUpdateOrPost(position);
 });

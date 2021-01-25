@@ -11,7 +11,7 @@ setInterval(sendData, 2000);
 function sendData() {
     var message = {
             id: "A" + getRandomInt(3) + getRandomInt(2),
-            value: getRandomInt(70) - 1
+            value: 30
         }
         // console.log("sending ", message)
     client.publish("channel/topic1", JSON.stringify(message), { qos: 1 }, function() {
