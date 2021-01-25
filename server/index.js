@@ -20,6 +20,9 @@ app.use(bodyParser.json());
 app.use('/positions', positionRouter);
 app.use('/cars', carRouter);
 app.use('/users', userRouter);
+app.use('/', (req, res) => {
+    res.send("hello");
+})
 const database = require('./configs/database');
 mongoose.connect(database.dbStr, {
     useUnifiedTopology: true,
