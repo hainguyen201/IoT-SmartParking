@@ -12,7 +12,7 @@ const CarSchema = new Schema({
         type: Number
     },
     PositionID: {
-        type: Schema.Types.ObjectId, ref: 'positions'
+        type: String
     }
 });
 module.exports = mongoose.model('cars', CarSchema);
