@@ -4,8 +4,23 @@ mongoose.set('useFindAndModify', false);
 const Users = require('../models/User')
 
 exports.getUsers = async(req, res) => {
-    const users = await Users.find();
-    res.json(users)
+    const users = await Users.find((err, data) => {
+        if (err) {
+            res.status(500).send({ message: "something went wrong" })
+        } else {
+            res.json(data)
+        }
+    });
+}
+exports.getUserByUserNameAndPassword = async(req, res) => {
+    var user = req.body
+    await Users.findOne({ account: user.UserName, password: user.Password }, async(err, data) => {
+        if (err) {
+            res.status(500).send({ message: "something went wrong" })
+        } else {
+            res.json(data)
+        }
+    })
 }
 exports.getUsersByID = async(req, res) => {
     console.log(req.params)
