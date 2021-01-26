@@ -11,23 +11,26 @@
     <div id="hello"></div>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script>
-        // $.ajax({
-        //     url: "https://smartparkinghustapi.herokuapp.com/positions",
-        //     type: "GET",
-        //     success: function(data, status, xhr) {
-        //         console.log(data)
-        //         console.log(status)
-        //             // console.log(xhr.responseText)
-        //     },
-        //     error: function(xhr, status, err) {
-        //         console.log("err")
-        //         console.log(xhr)
-        //         console.log(status)
-        //         console.log(err)
-        //     },
-        //     async: true,
-        // });
-        var exampleSocket = new WebSocket("ws://localhost:5000", "protocolOne");
+        $.ajax({
+            url: "https://smartparkinghustapi.herokuapp.com/cars/600eb4bca51f6f08684e800e",
+            method: "PUT",
+            data: {
+                "Duration": 13000
+            },
+            success: function(data, status, xhr) {
+                console.log(data)
+                console.log(status)
+                    // console.log(xhr.responseText)
+            },
+            error: function(xhr, status, err) {
+                console.log("err")
+                console.log(xhr)
+                console.log(status)
+                console.log(err)
+            },
+            async: true,
+        });
+        // var exampleSocket = new WebSocket("ws://localhost:5000", "protocolOne");
     </script>
 </body>
 

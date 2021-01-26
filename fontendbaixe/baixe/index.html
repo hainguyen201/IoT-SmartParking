@@ -21,9 +21,10 @@
     <script language="javascript" src="./js/index.js"></script>
     <script language="javascript" src="./js/position.js"></script>
     <style>
-        #baido{
+        #baido {
             padding: 0px;
         }
+        
         .bai-xe span {
             display: inline-block;
             width: 26px;
@@ -70,6 +71,10 @@
             text-align: center;
             background: deepskyblue;
             width: 55px;
+        }
+        
+        span.wrong-position {
+            background-color: red;
         }
     </style>
 </head>
@@ -264,175 +269,173 @@
 
                     <!-- Page Heading -->
                     <div class="title">
-                        Bãi đỗ xe abcxyz
+                        <div>
+                            <span>Số lượng xe đỗ</span>
+                            <span id="in_position"></span>
+
+                        </div>
+                        <div>
+                            <span>Số lượng còn trống</span>
+                            <span id="free_position"></span>
+                        </div>
+                        <div>
+                            <span>Số lượng đỗ sai</span>
+                            <span id="wrong_position"></span>
+                        </div>
+                        </br>
+                        </br>
+                        <div class="bai-xe">
+                            <div class="day-a" style="padding-top: 70px;padding-bottom: 0px;">
+                                <div class="day-a-1" id="A-top">
+                                    <span class="label">A</span>
+
+                                </div>
+                                <div class="day-a-2" id="a-bottom">
+                                    <span class="label">A</span>
+                                </div>
+                            </div>
+                            <div class="day-b" style="padding-top: 70px;padding-bottom: 0px;">
+                                <div class="day-b-1">
+                                    <span class="label">B</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                </div>
+                                <div class="day-b-2">
+                                    <span class="label">B</span>
+                                    <span class="active">A21</span>
+                                    <span>A22</span>
+                                    <span>A23</span>
+                                    <span>A24</span>
+                                </div>
+                            </div>
+                            <div class="day-c" style="padding-top: 0px;">
+                                <div class="day-b-1">
+                                    <span class="label">C</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                </div>
+                                <div class="day-b-2">
+                                    <span class="label">C</span>
+                                    <span class="active">A21</span>
+                                    <span>A22</span>
+                                    <span>A23</span>
+                                    <span>A24</span>
+                                    <span>A22</span>
+                                    <span>A23</span>
+                                    <span>A24</span>
+                                    <span>A22</span>
+                                    <span>A23</span>
+                                    <span>A24</span>
+                                    <span>A22</span>
+                                    <span>A23</span>
+                                    <span>A24</span>
+                                    <span>A22</span>
+                                    <span>A23</span>
+                                    <span>A24</span>
+                                </div>
+                            </div>
+                            <div class="day-d" style="padding-top: 0px;">
+                                <div class="day-b-1">
+                                    <span class="label">D</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                    <span>A11</span>
+                                    <span>A12</span>
+                                    <span>A13</span>
+                                    <span>A14</span>
+                                </div>
+                                <div class="day-b-2">
+                                    <span class="label">D</span>
+                                    <span class="active">A21</span>
+                                    <span>A22</span>
+                                    <span>A23</span>
+                                    <span>A24</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    </br>
-                    </br>
-                    <div class="bai-xe">
-                        <div class="day-a" style="padding-top: 70px;padding-bottom: 0px;">
-                            <div class="day-a-1" id="A-top">
-                                <span class="label">A</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A14</span>
-                            </div>
-                            <div class="day-a-2" id="a-bottom">
-                                <span class="label">A</span>
-                            </div>
-                        </div>
-                        <div class="day-b" style="padding-top: 70px;padding-bottom: 0px;">
-                            <div class="day-b-1">
-                                <span class="label">B</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                            </div>
-                            <div class="day-b-2">
-                                <span class="label">B</span>
-                                <span class="active">A21</span>
-                                <span>A22</span>
-                                <span>A23</span>
-                                <span>A24</span>
-                            </div>
-                        </div>
-                        <div class="day-c" style="padding-top: 0px;">
-                            <div class="day-b-1">
-                                <span class="label">C</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                            </div>
-                            <div class="day-b-2">
-                                <span class="label">C</span>
-                                <span class="active">A21</span>
-                                <span>A22</span>
-                                <span>A23</span>
-                                <span>A24</span>
-                                <span>A22</span>
-                                <span>A23</span>
-                                <span>A24</span>
-                                <span>A22</span>
-                                <span>A23</span>
-                                <span>A24</span>
-                                <span>A22</span>
-                                <span>A23</span>
-                                <span>A24</span>
-                                <span>A22</span>
-                                <span>A23</span>
-                                <span>A24</span>
-                            </div>
-                        </div>
-                        <div class="day-d" style="padding-top: 0px;">
-                            <div class="day-b-1">
-                                <span class="label">D</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                                <span>A11</span>
-                                <span>A12</span>
-                                <span>A13</span>
-                                <span>A14</span>
-                            </div>
-                            <div class="day-b-2">
-                                <span class="label">D</span>
-                                <span class="active">A21</span>
-                                <span>A22</span>
-                                <span>A23</span>
-                                <span>A24</span>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- /.container-fluid -->
+
                 </div>
-                <!-- /.container-fluid -->
+                <!-- End of Main Content -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.js"></script>
 
 </body>
 
