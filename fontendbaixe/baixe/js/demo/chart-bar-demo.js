@@ -181,7 +181,6 @@ function carList() {
           handleException(request, message, error);
       }
   });
-    carList();
   });
   console.log(year);
 
