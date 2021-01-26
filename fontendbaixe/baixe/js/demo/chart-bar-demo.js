@@ -48,6 +48,7 @@ function carList() {
           var thang10 = 0;
           var thang11 = 0;
           var thang12 = 0;
+          var max = 0;
           for (i = 0; i < cars.length; i++) {
               var carCode = cars[i].CarCode;
               var parkedTime = cars[i].ParkedTime;
@@ -93,7 +94,13 @@ function carList() {
               }
               
           }
-
+          var arr  = [thang1,thang2,thang3,thang4,thang5,thang6,thang7,thang8,thang9,thang10,thang11,thang12];
+          for(i=0;i<arr.length;i++){
+            if(arr[i]>max){
+              max = arr[i];
+            }
+          }
+          console.log(max);
           var ctx = document.getElementById("myBarChart");
           var myBarChart = new Chart(ctx, {
             type: 'bar',
@@ -134,7 +141,7 @@ function carList() {
                 yAxes: [{
                   ticks: {
                     min: 0,
-                    max: 150,
+                    max: max+10,
                     maxTicksLimit: 5,
                     padding: 10,
                     // Include a dollar sign in the ticks
